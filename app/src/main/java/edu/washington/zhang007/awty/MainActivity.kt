@@ -28,9 +28,17 @@ class MainActivity : AppCompatActivity() {
 
         startStop.setOnClickListener {
             if (startStop.text == "Start") {
-                if (msg.isEmpty() || phone.isEmpty() || interval.isEmpty()) {
+                if (msg.isEmpty()) {
                     Toast.makeText(this,
-                            "Make sure all fields are filled out!",
+                            "Message cannot be blank",
+                            Toast.LENGTH_SHORT).show()
+                } else if (phone.isEmpty() || phone.length != 10) {
+                    Toast.makeText(this,
+                            "Valid phone numbers have 10 digits",
+                            Toast.LENGTH_SHORT).show()
+                } else if (interval.isEmpty() || interval.toString() == "0") {
+                    Toast.makeText(this,
+                            "Interval must be > 0",
                             Toast.LENGTH_SHORT).show()
                 } else {
                     startStop.text = "Stop"
@@ -45,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                             intervalLong, pi)
                 }
-            } else {
+            } else { // button.text = "Stop"
                 startStop.text = "Start"
 
                 val pi = PendingIntent.getBroadcast(this, 0,
