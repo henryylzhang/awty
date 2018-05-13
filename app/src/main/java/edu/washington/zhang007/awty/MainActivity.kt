@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     startStop.text = "Stop"
 
-                    val toastMessage = "${formatPhoneNumber(phone.toString())}: $msg"
-                    i.putExtra("MESSAGE", toastMessage)
+                    i.putExtra("MESSAGE", msg.toString())
+                    i.putExtra("PHONE", phone.toString())
 
                     val pi = PendingIntent.getBroadcast(this, 0,
                             i, PendingIntent.FLAG_UPDATE_CURRENT)

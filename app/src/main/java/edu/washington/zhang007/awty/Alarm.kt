@@ -3,18 +3,20 @@ package edu.washington.zhang007.awty
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.telephony.SmsManager
 import android.util.Log
-import android.widget.Toast
 
 private const val TAG = "Alarm"
 
 class Alarm : BroadcastReceiver() {
 
     override fun onReceive(p0: Context?, p1: Intent?) {
-        Log.i(TAG, "onReceive called")
+        val message = p1?.getStringExtra("MESSAGE")
+        val phoneNumber = p1?.getStringExtra("PHONE")
 
-        val toastMessage = p1?.getStringExtra("MESSAGE")
+        val sms = SmsManager.getDefault()
 
-        Toast.makeText(p0, toastMessage, Toast.LENGTH_SHORT).show()
+        sms.sendTextMessage(phoneNumber, null, message, null, null)
+        Log.i(TAG, "Text Sent")
     }
 }
